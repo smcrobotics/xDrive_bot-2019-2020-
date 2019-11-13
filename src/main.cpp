@@ -60,7 +60,15 @@ void competition_initialize() {}
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-void autonomous() {}
+void autonomous() {
+  auto myChassis = okapi::ChassisControllerFactory::create(
+    1, 2, 9, 10,
+    okapi::IterativePosPIDController::Gains{0.001, 0, 0.0001},
+    okapi::IterativePosPIDController::Gains{0.001, 0, 0.0001}
+  );
+
+  myChassis.moveDistance(100);
+}
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -87,6 +95,10 @@ void opcontrol() {
       master.get_analog(ANALOG_RIGHT_Y),
       master.get_analog(ANALOG_LEFT_X)
     );
+
+    if (master.get_digital(DIGITAL_A)) {
+      autonomous();
+    }
 
     pros::delay(2);
   }
