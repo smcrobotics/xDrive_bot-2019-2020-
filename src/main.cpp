@@ -28,19 +28,7 @@ void initialize() {
 
 	pros::lcd::register_btn1_cb(on_center_button);
 
-  // TODO: test that all this stuff works
   drive::init();
-
-  // ChassisControllerIntegrated drive = xDriveModel(itopLeftMotor,
-  //             itopRightMotor,
-  //             ibottomRightMotor,
-  //             ibottomLeftMotor,
-  //             imaxVelocity,
-  //             imaxVoltage = 12000);
-
-  // these constants are found in robot.h
-  // TODO: put this stuff into the initialize() function
-  
 }
 
 /**
@@ -90,6 +78,7 @@ void autonomous() {}
 
 
 void opcontrol() {
+  // CONTROLLER_MASTER is port 21
   pros::Controller master (CONTROLLER_MASTER);
 
   while (true) {
